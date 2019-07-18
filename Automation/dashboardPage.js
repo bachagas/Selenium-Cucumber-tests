@@ -12,28 +12,26 @@ Driver = require('./driver.js');
 //   return false;
 // };
 
-module.exports = {
-  isAt: function() {
-    var result = new Promise(function(resolve, reject) {
-      Driver.wait(until.titleContains('Dashboard'), 5*1000).then(function () {
-        Driver.findElements(By.css('h1')).then(function (elems) {
-            elems[0].getText().then(function (text) {
-              resolve(text === "Dashboard");
-            }).catch(function(err) {
-              //console.log(err);
-              reject(err);
-            });
-        }).catch(function (err) {
-           //console.log(err);
-           //Driver.quit();
-           reject(err);
-        });
+module.exports.isAt = function() {
+  var result = new Promise(function(resolve, reject) {
+    Driver.wait(until.titleContains('Dashboard'), 5*1000).then(function () {
+      Driver.findElements(By.css('h1')).then(function (elems) {
+          elems[0].getText().then(function (text) {
+            resolve(text === "Dashboard");
+          }).catch(function(err) {
+            //console.log(err);
+            reject(err);
+          });
       }).catch(function (err) {
-         // console.log(err);
+         //console.log(err);
          //Driver.quit();
          reject(err);
       });
+    }).catch(function (err) {
+       // console.log(err);
+       //Driver.quit();
+       reject(err);
     });
-    return result;
-  }
-}
+  });
+  return result;
+};
