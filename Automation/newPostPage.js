@@ -60,7 +60,7 @@ this.goTo = function() {
                 resolve(thisPage);
               }
             } catch (err) {
-              reject("Erro ao clicar no menu de adicionar post: " + err.toString());
+              reject(err);
             }
           });
         }).catch(function (err) {

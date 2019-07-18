@@ -35,10 +35,14 @@ Given('I am at the Login Page', function () {
   LoginPage.goTo();
 });
 
-When('admin user logs in', function () {
-  LoginPage.loginAs("admin")
-    .withPassword("admin")
-    .login();
+When('admin user logs in', {timeout: 10*1000}, async function () {
+  try {
+    await LoginPage.loginAs("admin")
+      .withPassword("admin")
+      .loginAsync();
+  } catch (err) {
+    throw err;
+  }
 });
 
 Then('I should get to the Dashboard page', {timeout: 10*1000}, function () {
@@ -59,15 +63,13 @@ Given('I am logged in', function () {
 });
 
 When('I create a new post', {timeout: 10*1000}, function () {
-  NewPostPage.goTo().then(async function (NewPostPage) {
+  return NewPostPage.goTo().then(async function (NewPostPage) {
     try {
       await NewPostPage.createPost("This is the test post title")
         .withBody("Hi, this is the test post body.")
         .publishAsync();
     } catch (err) {
       throw err;
-      // console.log('When - Erro ao plublicar post');
-      // assert.fail("When \'I create a new post\' exception: " + err.toString());
     }
   });
 });

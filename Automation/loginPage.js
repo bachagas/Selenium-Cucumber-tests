@@ -27,7 +27,7 @@ this.withPassword = function(passwd) {
   return this;
 };
 
-this.login = async function() {
+this.loginAsync = async function() {
   // let driver = await new Builder().forBrowser('chrome').build();
   try {
     //await Driver.get('http://localhost/wordpress/wp-login.php');
